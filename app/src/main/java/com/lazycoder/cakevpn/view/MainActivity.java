@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.lazycoder.cakevpn.R;
+import com.lazycoder.cakevpn.SharedP;
 import com.lazycoder.cakevpn.adapter.ServerListRVAdapter;
 import com.lazycoder.cakevpn.interfaces.ChangeServer;
 import com.lazycoder.cakevpn.interfaces.NavItemClickListener;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
     private ServerListRVAdapter serverListRVAdapter;
     private DrawerLayout drawer;
     private ChangeServer changeServer;
+    private String etname,etpwd;
 
     public static final String TAG = "CakeVPN";
     @Override
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
         serverLists = getServerList();
         changeServer = (ChangeServer) fragment;
 
+        etname = new SharedP(MainActivity.this,"config").getUsername();
+        etpwd =new SharedP(MainActivity.this,"config").getUsername();
+        Toast.makeText(this, etname, Toast.LENGTH_SHORT).show();
+
     }
 
     /**
@@ -108,29 +115,24 @@ public class MainActivity extends AppCompatActivity implements NavItemClickListe
 
         ArrayList<Server> servers = new ArrayList<>();
 
-        servers.add(new Server("United States",
-                Utils.getImgURL(R.drawable.usa_flag),
-                "us.ovpn",
-                "freeopenvpn",
-                "416248023"
+        servers.add(new Server("nodedd",
+                Utils.getImgURL(R.drawable.ic_stat_vpn),
+                "node1.ovpn",etname,
+                etpwd
+
         ));
-        servers.add(new Server("Japan",
-                Utils.getImgURL(R.drawable.japan),
-                "japan.ovpn",
-                "vpn",
-                "vpn"
+        servers.add(new Server("线路2",
+                Utils.getImgURL(R.drawable.ic_stat_vpn),
+                "node2.ovpn",
+                etname,
+                etpwd
         ));
-        servers.add(new Server("Sweden",
-                Utils.getImgURL(R.drawable.sweden),
-                "sweden.ovpn",
-                "vpn",
-                "vpn"
-        ));
-        servers.add(new Server("Korea",
-                Utils.getImgURL(R.drawable.korea),
-                "korea.ovpn",
-                "vpn",
-                "vpn"
+        servers.add(new Server("vpntest",
+                Utils.getImgURL(R.drawable.ic_stat_vpn),
+                "vpntest.ovpn"
+                ,
+                etname,
+                etpwd
         ));
 
         return servers;
